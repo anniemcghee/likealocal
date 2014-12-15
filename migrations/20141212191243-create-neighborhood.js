@@ -14,6 +14,9 @@ module.exports = {
       description: {
         type: DataTypes.STRING
       },
+      igtag: {
+        type: DataTypes.STRING
+      },
       createdAt: {
         allowNull: true,
         type: DataTypes.INTEGER

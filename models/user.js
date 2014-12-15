@@ -24,9 +24,9 @@ module.exports = function(sequelize, DataTypes) {
           }
         }
       },
+    url: DataTypes.STRING,
     job: DataTypes.STRING,
-    about: DataTypes.STRING,
-    url: DataTypes.STRING
+    about: DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {

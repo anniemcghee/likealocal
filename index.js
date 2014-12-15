@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var flash = require('connect-flash') // has to be after session bc it depends on session
 var bcrypt = require('bcrypt');
+var Instagram = require('instagram-node-lib');
 
 var db = require('./models');
 
@@ -18,6 +19,9 @@ app.use(session({ //don't forget the weird parentheses
 }));
 
 app.use(flash());
+
+Instagram.set('client_id', process.env.client_id);
+Instagram.set('client_secret', process.env.client_secret);
 
 app.use(function(req, res, next){ 
     req.getUser = function(){
@@ -35,7 +39,9 @@ app.get('*', function(req,res,next){ //Define ALL locals here then move on
 
 app.get('/', function(req,res){
     var user = req.getUser();
-    res.render('index',{user:user});
+
+    res.render('index',{user:user}, links);
+
 })
 
 app.get('/user/signup', function(req,res){

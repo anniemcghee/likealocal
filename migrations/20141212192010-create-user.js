@@ -23,6 +23,12 @@ module.exports = {
       url: {
         type: DataTypes.STRING
       },
+      job: {
+        type: DataTypes.STRING
+      },
+      about: {
+        type: DataTypes.STRING
+      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE
