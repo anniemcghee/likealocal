@@ -11,6 +11,7 @@ var gotTags = function(data) {
 }
 
 Instagram.tags.recent({
+	
 	name: 'magnoliaseattle',
 	complete: gotTags
 });
