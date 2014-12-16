@@ -32,36 +32,48 @@ app.use(function(req, res, next){
     next(); 
 })
 
-// What is this doing? From auth lab - make sure it's connected to my alerts
+// --- This is deploying session and alerts on all gets and posts --- is user var an issue?
 app.use('*', function(req,res,next){
-    var user = req.getUser();//Define ALL locals here then move on 
     var alerts = req.flash();
-    res.locals.alerts = alerts; //res.locals is a hidden variable - don't need to render it anymore!
-    next(); //must call next to move on to the next route
+    res.locals.alerts = alerts; 
+    next(); 
 });
 
+// --- This is the homepage ---
 app.get('/', function(req,res){
     var user = req.getUser();
-
-    res.render('index',{user:user});
-
+    console.log("THE USER ID IS: "+user)
+    db.neighborhood.findAll().success(function(neighborhoods){
+        // res.send(neighborhoods);
+            res.render('index', {neighborhoods:neighborhoods, user: user});
+    })
 })
 
+// --- This is the signup page ---
 app.get('/user/signup', function(req,res){
-    var user = req.getUser();
-
-    res.render('user/signup',{user:user});
+    var user = req.getUser(); // ---- I want session to know that signup is only available to users NOT logged in
+    if(user){
+        res.redirect('/');
+    } else {
+    res.render('user/signup', {user: user});    
+    }
+    
 })
 
+// --- This is the login page ---
 app.get('/user/login', function(req,res){
-    var user = req.getUser();
-
-    res.render('user/login',{user:user});
+    var user = req.getUser(); 
+    console.log(user);// ---- I want session to know that signup is only available to users NOT logged in
+    if (user){
+        res.redirect('/');
+    } else {
+        res.render('user/login', {user: user});   
+    }
 })
 
-// ---- Posting to DB / Find Or Create working / Errors working / Bcrpyt working ---
+// ---- Posting to DB / Find Or Create working / Errors working / Bcrpyt working / Img working ---
+// ---- I want this to redirect to the user's complete profile page ----
 app.post('/user/signup', function(req,res){
-var user = req.getUser();
 
 var myImgPath = req.files.picture.path
 
@@ -78,7 +90,7 @@ var myImgPath = req.files.picture.path
 
             cloudinary.uploader.upload(myImgPath,function(result){
                 res.redirect('/');
-            },{'public_id':'user_'+user.id});
+            },{'public_id': 'user_'+user.id});
     }).catch(function(error){
         if (error && error.errors && Array.isArray(error.errors)) {
             error.errors.forEach(function(errorItem){
@@ -94,7 +106,6 @@ var myImgPath = req.files.picture.path
 
 // ---- Posting to DB / Find Or Create working / Errors working / Bcrpyt working ---
 app.post('/user/login', function(req,res){
-var user = req.getUser();
 
     db.user.find({where: {email:req.body.email}}).then(function(userObj){
         if (userObj){
@@ -118,33 +129,104 @@ var user = req.getUser();
     })
 })
 
+// ---- I want this to only appear for logged in users ----
 app.get('/user/logout',function(req,res){
     delete req.session.user;
-    req.flash('info','You have been logged out.') //bootstrap needed here in first parameter then message
+    req.flash('info','You have been logged out.')
     res.redirect('/');
 });
 
-// ---- Might need to add user id to route? 
+// ---- I want this to only be an option for logged in users ---- 
 app.get('/user/addpost',function(req,res){
     var user = req.getUser();
-    res.render('user/addpost', {user:user});
+
+    if (user) {
+        console.log("THE USER NAME IS: "+user)
+        res.render('user/addpost', {user: user});
+    } else {
+        res.redirect('/user/login')  
+    }
 })
 
-// ---- Might need to add user id to route? Or just restrict access to logged in users ----
+// ---- Selector forms need to be in a loop to DRY it up - but otherwise it's working 
 app.post('/user/addpost',function(req,res){
     var user = req.getUser();
-    db.post.create({
-        title:req.body.title,
-        content:req.body.content,
-        neighborhoodId:req.body.neighborhoodId,
-        categoryId:req.body.category,
-        userId:user.id}) //this is from session
-    .then(function(newData){
-    })
-    res.redirect('/'); //this needs to render the page the user was just on OR their profile with the new post
+
+    if (user) {
+        db.post.create({
+            title:req.body.title,
+            content:req.body.content,
+            neighborhoodId:req.body.neighborhoodId,
+            categoryId:req.body.category,
+            userId:user.id}) //this is from session
+        .then(function(newData){
+            res.redirect('/user/myprofile'); //this needs to render the page the user was just on OR their profile with the new post
+        })
+    }else {
+        res.redirect('/user/login');
+    }
 })
 
+app.get('/user/myprofile', function(req,res){
+    // var user = req.session.user.id
+    var user = req.getUser();
+
+    if (user){
+        var imgId='user_'+ user.id;
+        var imgThumb = cloudinary.url(imgId+'.jpg', {
+          width: 100,
+          height: 108, 
+          crop: 'fill',
+          gravity: 'face',
+          radius: 'max',
+          // effect: 'sepia' 
+        });
+
+        db.user.find(user.id).done(function(err,data){
+            res.render('user/profile', {data:data, imgThumb:imgThumb, user:user});
+
+        })
+
+    } else {
+        res.redirect("/");
+        
+    }
+})
+// ---- I'm the neighborhood show page with the instagram pics! ----
+app.get('/:id', function(req,res){
+    var user = req.getUser();
+    var neighborhoodId = req.params.id
+
+    db.neighborhood.find({where: {id: neighborhoodId}}).then(function(data){
+
+        Instagram.tags.recent({
+            name: data.igtag,
+            complete:function(linksJSON){
+                var links = linksJSON.map(function(element, index){
+                    return element.images.standard_resolution.url;
+                })
+
+                res.render('neighborhoodshow', {data:data, links:links, user:user});
+            }
+        })
+    });
+
+    // db.neighborhood.find({where: {id: neighborhoodId}}).done(function(err, data){
+        
+}) 
+
+// 
+app.get('/:neighid/:tagid', function(req,res){
+    var user = req.getUser();
+    db.post.findAll({where: {neighborhoodId: req.params.neighid, categoryId: req.params.tagid}}).then(function(postData){
+        // res.send(postData);
+        res.render('neightagposts',{postData:postData, user:user});
+    })
+})
+
+// ---- This works but not in the link yet - only when typed in directly. Need to fix the get 
 app.get('/user/:id', function(req,res){
+
     var userId = req.params.id
 
     var imgId='user_'+userId;
@@ -163,32 +245,5 @@ app.get('/user/:id', function(req,res){
     })
 })
 
-// ---- I'm the neighborhood show page with the instagram pics! ----
-app.get('/:id', function(req,res){
-    var neighborhoodId = req.params.id
 
-    db.neighborhood.find({where: {id: neighborhoodId}}).then(function(data){
-
-        Instagram.tags.recent({
-            name: data.igtag,
-            complete:function(linksJSON){
-                var links = linksJSON.map(function(element, index){
-                    return element.images.standard_resolution.url;
-                })
-
-                res.render('neighborhoodshow', {data:data, links:links});
-            }
-        })
-    });
-
-    // db.neighborhood.find({where: {id: neighborhoodId}}).done(function(err, data){
-        
-}) 
-
-
-app.get('/:neighid/:tagid', function(req,res){
-    res.render('neightagposts');
-})
-
-
-app.listen(3000);
+app.listen(3001);

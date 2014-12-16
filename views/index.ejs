@@ -1,12 +1,5 @@
 <% include partials/header.ejs %>
 
-<% if(user) { %>
-Hey <%= typeof user.first === 'string' ? user.first : 'you' %>!
-<% } %>
-
-
-<h2>Check out posts from the following neighborhoods:</h2>
-<div class="hood">
 <a href='/1'>Magnolia</a>
 <a href='/2'>Ballard</a>
 <a href='/3'>Phinney & Greenwood</a>
@@ -31,6 +24,5 @@ Hey <%= typeof user.first === 'string' ? user.first : 'you' %>!
 <a href='/22'>SODO</a>
 <a href='/23'>Georgetown</a>
 <a href='/24'>West Seattle</a>
-</div>
 
 <% include partials/footer.ejs %>

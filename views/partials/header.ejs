@@ -10,20 +10,28 @@
 </head>
 <body>
 <div class="container">
+
 <div class="page header">
-<h1>Like a Local: Seattle</h1>
-<button type="button" class="btn btn-link"><a href='/user/signup'>Sign Up</a></button>
-<button type="button" class="btn btn-link"><a href='/user/login'>Log In</a></button>
-<button type="button" class="btn btn-link"><a href='/user/logout'>Log Out</a></button>
-<button type="button" class="btn btn-link"><a href='/user/:id'>My Profile</a></button>
+<a href='/'><h1>Like a Local: Seattle</h1></a>
+<% if(user && typeof user != undefined) { %>
+	Hello <%= typeof user.first == 'string' ? user.first : '' %>!
+	<button type="button" class="btn btn-link"><a href='/user/logout'>Log Out</a></button>
+	<button type="button" class="btn btn-link"><a href='/user/myprofile'>My Profile</a></button>
+<% } else { %>
+	<button type="button" class="btn btn-link"><a href='/user/signup'>Sign Up</a></button>
+	<button type="button" class="btn btn-link"><a href='/user/login'>Log In</a></button>
+
+<!-- You are logged out. -->
+<% } %>
+
 
 <hr>
 </div>
+
+
 <div class="show name">
-<% if(user) { %>
-Hey <%= typeof user.first === 'string' ? user.first : 'you' %>!
-<% } else { %>
-You are logged out.
-<% } %>
+
 </div>
+
+
 	<% include alerts.ejs %>

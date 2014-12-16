@@ -1,5 +1,12 @@
 <% include partials/header.ejs %>
 
-<h2>This page show neighborhood posts by tags</h2>
+<h2>This will say the neighborhood name and tag name</h2>
+
+<div name="post">
+<% for (var i = 0; i < postData.length; i++) { %>
+	<li><%= postData[i].title %> -
+	<%= postData[i].content %> </li>
+</div>
+<% } %>
 
 <% include partials/footer.ejs %>

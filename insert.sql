@@ -1,5 +1,46 @@
 \connect localcon
 
+<% for (var i=0;i<neighborhoods.length;i++) { %>
+<h2>Check out posts from the following neighborhoods:</h2>
+<div class="hood">
+<a href='/<%= neighborhoods.id %>'><%= neighborhoods.name %></a>
+<% } %>
+</div>
+
+
+<div class="show name">
+<% if(user) { %>
+Hey <%= typeof user.first === 'string' ? user.first : 'you' %>!
+<% } else { %>
+You are logged out.
+<% } %>
+</div>
+
+<a href='/1'>Magnolia</a>
+<a href='/2'>Ballard</a>
+<a href='/3'>Phinney & Greenwood</a>
+<a href='/4'>Wallingford & Green Lake</a>
+<a href='/5'>Roosevelt & Ravenna</a>
+<a href='/6'>University District</a>
+<a href='/7'>Fremont</a>
+<a href='/8'>Wedgwood & Sand Point</a>
+<a href='/9'>Queen Anne</a>
+<a href='/10'>South Lake Union</a>
+<a href='/11'>Eastlake</a>
+<a href='/12'>Belltown</a>
+<a href='/13'>Downtown</a>
+<a href='/14'>Pioneer Square</a>
+<a href='/15'>Capitol Hill</a>
+<a href='/16'>Central District</a>
+<a href='/17'>International District</a>
+<a href='/18'>Madison Park & Madison Valley</a>
+<a href='/19'>Madrona & Leschi</a>
+<a href='/20'>Beacon Hill</a>
+<a href='/21'>Rainier Valley</a>
+<a href='/22'>SODO</a>
+<a href='/23'>Georgetown</a>
+<a href='/24'>West Seattle</a>
+
 INSERT INTO categories VALUES (1,'Eat & Drink');
 
 INSERT INTO categories VALUES (2,'Day Out');
