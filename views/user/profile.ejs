@@ -1,7 +1,11 @@
 <% include ../partials/header.ejs %>
 
+<img src='<%= imgThumb %>'>
 <%= data.first %>
 <%= data.job %>
-<%= data
+<%= data.about %>
+
+Posts by <%= data.first %>:
+-pass through an object to this page that shows post title and a link
 
 <% include ../partials/footer.ejs %>

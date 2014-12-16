@@ -19,4 +19,11 @@
 
 <hr>
 </div>
+<div class="show name">
+<% if(user) { %>
+Hey <%= typeof user.first === 'string' ? user.first : 'you' %>!
+<% } else { %>
+You are logged out.
+<% } %>
+</div>
 	<% include alerts.ejs %>

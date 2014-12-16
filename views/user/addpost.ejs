@@ -3,10 +3,10 @@
 <div class="col-md-6">
     <h1>Add a post</h1>
     <hr>
-    <form class="form" method="post" action="/user/addpost">
+    <form class="form" method="post" action="/user/addpost" enctype="multipart/form-data">
         <input type="text" class="form-control" placeholder="Post Title" name="title">
         <br><br>
-        <select required name="Neighborhood">
+        <select required name="neighborhoodId">
         	<option value="" disabled="disabled" selected="selected">Select a Neighborhood</option>
         	<option value="1">Magnolia</option>
         	<option value='2'>Ballard</option>
@@ -34,7 +34,7 @@
 			<option value='24'>West Seattle</option>
         </select>
         <br><br>
-        <select required name="Tag">
+        <select required name="category">
         	<option value="" disabled="disabled" selected="selected">Select a Category</option>
         	<option value='1'>Eat and Drink</option>
         	<option value='2'>Day Out</option>
