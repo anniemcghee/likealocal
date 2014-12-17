@@ -6,24 +6,45 @@
 <%= data.description %></h2>
 
 <div class="category browse">
-Day Out in <%= data.name %>
+<a href='<%= data.id %>/1'>Day Out in <%= data.name %></a>
 <br>
-Night Out Out in <%= data.name %>
+<a href='<%= data.id %>/2'>Night Out Out in <%= data.name %></a>
 <br>
-Eat & Drink in <%= data.name %>
+<a href='<%= data.id %>/3'>Eat & Drink in <%= data.name %></a>
 <br>
-Secret Gems in <%= data.name %>
+<a href='<%= data.id %>/4'>Secret Gems in <%= data.name %></a>
 <br>
-Getting Around in <%= data.name %>
+<a href='<%= data.id %>/5'>Getting Around in <%= data.name %></a>
 <br>
 </div>
 
+<div id="carousel-insta" class="carousel slide" data-ride="carousel" interval='3000'>
+ 
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="http://i.imgur.com/dXIGXeD.jpg" alt="...">
 
-<div class="slideshow">
-<% for (var i = 0; i < 10; i++) { %>
-<img class="img-thumbnail" src='<%= links[i] %>'>
-<% } %>
-</div>
+    </div>
+
+    <div class="item">
+		<% for (var i = 0; i < 10; i++) { %>
+			<img src='<%= links[i] %>' alt="...">
+		<% } %>
+	</div>
+
+  </div>
+ 
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+  </a>
+</div> <!-- Carousel -->
+
+
 
 
 <% include partials/footer.ejs %>

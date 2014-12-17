@@ -43,6 +43,7 @@ app.use('*', function(req,res,next){
 app.get('/', function(req,res){
     var user = req.getUser();
     console.log("THE USER ID IS: "+user)
+
     db.neighborhood.findAll().success(function(neighborhoods){
         // res.send(neighborhoods);
             res.render('index', {neighborhoods:neighborhoods, user: user});
@@ -219,8 +220,12 @@ app.get('/:id', function(req,res){
 app.get('/:neighid/:tagid', function(req,res){
     var user = req.getUser();
     db.post.findAll({where: {neighborhoodId: req.params.neighid, categoryId: req.params.tagid}}).then(function(postData){
-        // res.send(postData);
-        res.render('neightagposts',{postData:postData, user:user});
+        db.category.find({where: {id: req.params.tagid}}).then(function(catData){
+            db.neighborhood.find({where: {id: req.params.neighid}}).then(function(neighData){
+                    res.render('neightagposts',{postData:postData, catData:catData, neighData:neighData, user:user});
+
+            })
+        })
     })
 })
 

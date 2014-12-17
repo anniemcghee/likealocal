@@ -1,12 +1,17 @@
 <% include partials/header.ejs %>
 
-<h2>This will say the neighborhood name and tag name</h2>
+<h2><%= neighData.name %></h2>
+<h3><%= catData.tag %></h3>
 
-<div name="post">
+<% if (postData.length === 0) { %>
+<h2>No posts yet!</h2>
+<button type="button" class="btn btn-link"><a href='/user/addpost'>Add a Post</a></button>
+<% } else { %>
 <% for (var i = 0; i < postData.length; i++) { %>
 	<li><%= postData[i].title %> -
 	<%= postData[i].content %> </li>
 </div>
+<% } %>
 <% } %>
 
 <% include partials/footer.ejs %>
