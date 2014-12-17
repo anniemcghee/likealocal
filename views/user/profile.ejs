@@ -1,11 +1,20 @@
 <% include ../partials/header.ejs %>
 
 <img src='<%= imgThumb %>'>
-<%= data.first %>
-<%= data.job %>
-<%= data.about %>
+<h2><%= data.first %></h2>
+<h3><%= data.job %> | <%= data.about %></h3>
 
-Posts by <%= data.first %>:
--pass through an object to this page that shows post title and a link
+<br><br>
+<% if (postData.length === 0) { %>
+<h3>No posts by <%= data.first %> yet!</h3>
+<% } else { %>
+<% for (var i = 0; i < postData.length; i++) { %>
+	<a href='<%= postData.neighId %>/<%= postData.categoryId %>'><%= postData.title %></a>
+	<br>
+	<%= postData.content %>
+<% } %>
+<% } %>
+
+
 
 <% include ../partials/footer.ejs %>

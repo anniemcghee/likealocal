@@ -222,6 +222,15 @@ app.get('/:neighid/:tagid', function(req,res){
     db.post.findAll({where: {neighborhoodId: req.params.neighid, categoryId: req.params.tagid}}).then(function(postData){
         db.category.find({where: {id: req.params.tagid}}).then(function(catData){
             db.neighborhood.find({where: {id: req.params.neighid}}).then(function(neighData){
+                // var imgId='user_'+ postData.userId;
+                // var imgThumb = cloudinary.url(imgId+'.jpg', {
+                //       width: 100,
+                //       height: 108, 
+                //       crop: 'fill',
+                //       gravity: 'face',
+                //       radius: 'max',
+                //       // effect: 'sepia' 
+                //     }); then pass imgThumb through the object!
                     res.render('neightagposts',{postData:postData, catData:catData, neighData:neighData, user:user});
 
             })
@@ -244,11 +253,19 @@ app.get('/user/:id', function(req,res){
       // effect: 'sepia' 
     });
 
-    db.user.find({where: {id: userId}}).done(function(err,data){
-        res.render('user/profile', {data:data, imgThumb:imgThumb});
+// The following is almost working code to pass through user's pic + postdata
+//     db.post.findAll({where: {userId: req.params.id}}).then(function(postData){
+//         db.user.find({where: {id: req.params.id}}).then(function(data){
+//             res.render({data:data, postData:postData, imgThumb:imgThumb});
+//         })
+//     })
+// })
 
+        db.user.find({where: {id: req.params.id}}).then(function(data){
+            res.render({data:data, imgThumb:imgThumb});
+        })
     })
-})
+
 
 
 app.listen(3001);
