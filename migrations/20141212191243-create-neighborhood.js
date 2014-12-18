@@ -17,6 +17,12 @@ module.exports = {
       igtag: {
         type: DataTypes.STRING
       },
+      latitude: {
+        type: DataTypes.STRING
+      },
+      longitude: {
+        type: DataTypes.STRING
+      },
       createdAt: {
         allowNull: true,
         type: DataTypes.INTEGER

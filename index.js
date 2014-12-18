@@ -44,9 +44,8 @@ app.get('/', function(req,res){
     var user = req.getUser();
     console.log("THE USER ID IS: "+user)
 
-    db.neighborhood.findAll().success(function(neighborhoods){
-        // res.send(neighborhoods);
-            res.render('index', {neighborhoods:neighborhoods, user: user});
+    db.neighborhood.findAll().success(function(neighborhood){
+            res.render('index', {neighborhood:neighborhood, user: user});
     })
 })
 
@@ -169,7 +168,7 @@ app.post('/user/addpost',function(req,res){
 })
 
 app.get('/user/myprofile', function(req,res){
-    // var user = req.session.user.id
+
     var user = req.getUser();
 
     if (user){
@@ -183,16 +182,44 @@ app.get('/user/myprofile', function(req,res){
           // effect: 'sepia' 
         });
 
-        db.user.find(user.id).done(function(err,data){
-            res.render('user/profile', {data:data, imgThumb:imgThumb, user:user});
-
-        })
-
-    } else {
-        res.redirect("/");
-        
-    }
+        db.user.find({where: {id: user.id}}).then(function(data){
+            // res.send(user)
+            db.post.findAll({where: {userId: user.id}}).then(function(postData){    
+                res.render('user/profile', {data:data, postData:postData, imgThumb:imgThumb, user:user});
+            })
+        }) 
+    };
 })
+//     } else {
+//             res.redirect("/");
+//     }
+
+
+// ---- This works but not in the link yet - only when typed in directly. Need to link to it from POSTS ---
+// ---- Also need to add posts by this user ----
+app.get('/user/:id', function(req,res){
+
+    var user = req.getUser();
+
+    var userId = req.params.id
+
+    var imgId='user_'+userId;
+    var imgThumb = cloudinary.url(imgId+'.jpg', {
+      width: 100,
+      height: 108, 
+      crop: 'fill',
+      gravity: 'face',
+      radius: 'max',
+      // effect: 'sepia' 
+    });
+
+        db.user.find({where: {id: req.params.id}}).then(function(data){
+            db.post.findAll({where: {userId: req.params.id}}).then(function(postData){
+                res.render('user/profile', {data:data, postData:postData, imgThumb:imgThumb, user:user});
+            })
+        }) 
+    })
+
 // ---- I'm the neighborhood show page with the instagram pics! ----
 app.get('/:id', function(req,res){
     var user = req.getUser();
@@ -216,12 +243,20 @@ app.get('/:id', function(req,res){
         
 }) 
 
-// 
+// --- Working / Next step is adding IMAGE or NAME of user by their post and LINK to the USER ID PAGE ---
 app.get('/:neighid/:tagid', function(req,res){
     var user = req.getUser();
-    db.post.findAll({where: {neighborhoodId: req.params.neighid, categoryId: req.params.tagid}}).then(function(postData){
+
         db.category.find({where: {id: req.params.tagid}}).then(function(catData){
             db.neighborhood.find({where: {id: req.params.neighid}}).then(function(neighData){
+                db.post.findAll({where: {neighborhoodId: req.params.neighid, categoryId: req.params.tagid}}).then(function(postData){
+                    if(postData[0] === undefined){
+                        res.render('neightagposts',{postData:postData, catData:catData, neighData:neighData, user:user})
+                    }
+                db.user.find({where: {id: postData[0].userId}}).then(function(userData){
+                    res.render('neightagposts',{postData:postData, userData:userData, catData:catData, neighData:neighData, user:user});
+                })
+                // db.user.find({where: {id: }})
                 // var imgId='user_'+ postData.userId;
                 // var imgThumb = cloudinary.url(imgId+'.jpg', {
                 //       width: 100,
@@ -231,40 +266,15 @@ app.get('/:neighid/:tagid', function(req,res){
                 //       radius: 'max',
                 //       // effect: 'sepia' 
                 //     }); then pass imgThumb through the object!
-                    res.render('neightagposts',{postData:postData, catData:catData, neighData:neighData, user:user});
+            
+                    
 
             })
         })
     })
 })
 
-// ---- This works but not in the link yet - only when typed in directly. Need to fix the get 
-app.get('/user/:id', function(req,res){
 
-    var userId = req.params.id
-
-    var imgId='user_'+userId;
-    var imgThumb = cloudinary.url(imgId+'.jpg', {
-      width: 100,
-      height: 108, 
-      crop: 'fill',
-      gravity: 'face',
-      radius: 'max',
-      // effect: 'sepia' 
-    });
-
-// The following is almost working code to pass through user's pic + postdata
-//     db.post.findAll({where: {userId: req.params.id}}).then(function(postData){
-//         db.user.find({where: {id: req.params.id}}).then(function(data){
-//             res.render({data:data, postData:postData, imgThumb:imgThumb});
-//         })
-//     })
-// })
-
-        db.user.find({where: {id: req.params.id}}).then(function(data){
-            res.render({data:data, imgThumb:imgThumb});
-        })
-    })
 
 
 

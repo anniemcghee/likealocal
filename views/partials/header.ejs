@@ -21,7 +21,7 @@
 <div class="page header">
 <a href='/'><h1>Like a Local: Seattle</h1></a>
 <% if(user && typeof user != undefined) { %>
-	Hello <%= typeof user.first == 'string' ? user.first : '' %>!
+	<h3>Hello <%= typeof user.first == 'string' ? user.first : '' %>!</h3>
 	<button type="button" class="btn btn-link"><a href='/user/logout'>Log Out</a></button>
 	<button type="button" class="btn btn-link"><a href='/user/myprofile'>My Profile</a></button>
 <% } else { %>

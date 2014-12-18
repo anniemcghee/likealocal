@@ -1,91 +1,25 @@
 <% include partials/header.ejs %>
 
-<script>
 <div id="map">
+</div>
+<script>
 
-  var map = L.map('map').setView([51.505, -0.09], 13);
-
+ var map = L.map('map').setView([47.605017, -122.334437], 11);
+ var neighborhood = <%- JSON.stringify(neighborhood) %>;
   L.tileLayer('http://{s}.tiles.mapbox.com/v3/anniemcblee.8ef08a55/{z}/{x}/{y}.png', {
-      maxZoom: 18
+      zoomControl:false
   }).addTo(map);
 
-// L.mapbox.accessToken= process.env.mapbox;
-// // // 
-// var map = L.mapbox.map('map', 'anniemcblee.8ef08a55');
 
-// <a href='/1'>Magnolia</a>
-// var marker = L.marker([47.642806, -122.399697]).addTo(map);
+map.dragging.disable();
+map.touchZoom.disable();
+map.doubleClickZoom.disable();
+map.scrollWheelZoom.disable();
 
-// <a href='/2'>Ballard</a>
-// var marker = L.marker([47.668678, -122.386095]).addTo(map);
-
-// <a href='/3'>Phinney & Greenwood</a>
-// var marker = L.marker([47.668435, -122.354394]).addTo(map);
-
-// <a href='/4'>Wallingford & Green Lake</a>
-// var marker = L.marker([47.655648, -122.336272]).addTo(map);
-
-// <a href='/5'>Roosevelt & Ravenna</a>
-// var marker = L.marker([47.678056, -122.315278]).addTo(map);
-
-// <a href='/6'>University District</a>
-// var marker = L.marker([47.659453, -122.317749]).addTo(map);
-
-// <a href='/7'>Fremont</a>
-// var marker = L.marker([47.654127, -122.349947]).addTo(map);
-
-// <a href='/8'>Wedgwood & Sand Point</a>
-// var marker = L.marker([47.690109, -122.290527]).addTo(map);
-
-// <a href='/9'>Queen Anne</a>
-// var marker = L.marker([47.632327, -122.356864]).addTo(map);
-
-// <a href='/10'>South Lake Union</a>
-// var marker = L.marker([47.623006, -122.336991]).addTo(map);
-
-// <a href='/11'>Eastlake</a>
-// var marker = L.marker([47.640936, -122.326691]).addTo(map);
-
-// <a href='/12'>Belltown</a>
-// var marker = L.marker([47.614506, -122.345252]).addTo(map);
-
-// <a href='/13'>Downtown</a>
-// var marker = L.marker([47.605017, -122.334437]).addTo(map);
-
-// <a href='/14'>Pioneer Square</a>
-// var marker = L.marker([47.601452, -122.332356]).addTo(map);
-
-// <a href='/15'>Capitol Hill</a>
-// var marker = L.marker([47.615166, -122.321413]).addTo(map);
-
-// <a href='/16'>Central District</a>
-// var marker = L.marker([47.608758, -122.296424]).addTo(map);
-
-// <a href='/17'>International District</a>
-// var marker = L.marker([47.600155, -122.320790]).addTo(map);
-
-// <a href='/18'>Madison Park & Madison Valley</a>
-// var marker = L.marker([47.634609, -122.279645]).addTo(map);
-
-// <a href='/19'>Madrona & Leschi</a>
-// var marker = L.marker([47.606753, -122.285943]).addTo(map);
-
-// <a href='/20'>Beacon Hill</a>
-// var marker = L.marker([47.564271, -122.308474]).addTo(map);
-
-// <a href='/21'>Rainier Valley</a>
-// var marker = L.marker([47.549211, -122.273970]).addTo(map);
-
-// <a href='/22'>SODO</a>
-// var marker = L.marker([47.580253, -122.331820]).addTo(map);
-
-// <a href='/23'>Georgetown</a>
-// var marker = L.marker([47.543997, -122.319975]).addTo(map);
-
-// <a href='/24'>West Seattle</a>
-// var marker = L.marker([47.564966, -122.387781]).addTo(map);
+for (var i = 0; i < neighborhood.length; i++) { 
+	L.marker([neighborhood[i].latitude, neighborhood[i].longitude]).bindPopup('<a href="/' + neighborhood[i].id + '">' + neighborhood[i].name + '</a>' +'<br>'+ '<h2>' + neighborhood[i].description + '</h2>').addTo(map);
+ }; 
 	
-</div>
 </script>
 
 <a href='/1'>Magnolia</a>

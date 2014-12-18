@@ -5,11 +5,13 @@
 
 <% if (postData.length === 0) { %>
 <h2>No posts yet!</h2>
-<button type="button" class="btn btn-link"><a href='/user/addpost'>Add a Post</a></button>
+
 <% } else { %>
 <% for (var i = 0; i < postData.length; i++) { %>
-	<li><%= postData[i].title %> -
-	<%= postData[i].content %> </li>
+	<h2><%= postData[i].title %></h2>
+	<h3>By: <a href='../user/<%= userData.id %>'><%= userData.first %></a></h3>
+	<br>
+	<%= postData[i].content %> 
 </div>
 <% } %>
 <% } %>

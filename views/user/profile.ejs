@@ -9,9 +9,9 @@
 <h3>No posts by <%= data.first %> yet!</h3>
 <% } else { %>
 <% for (var i = 0; i < postData.length; i++) { %>
-	<a href='<%= postData.neighId %>/<%= postData.categoryId %>'><%= postData.title %></a>
+	<a href='../<%= postData[i].neighborhoodId %>/<%= postData[i].categoryId %>'><%= postData[i].title %></a>
 	<br>
-	<%= postData.content %>
+	<%= postData[i].content %>
 <% } %>
 <% } %>
 
