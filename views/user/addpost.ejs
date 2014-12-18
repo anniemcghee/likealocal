@@ -1,50 +1,29 @@
 <% include ../partials/header.ejs %>
 
 <div class="col-md-6">
-    <h1>Add a post</h1>
+    <h1>Add a post     <small> to share your Seattle knowledge!</small></h1>
     <hr>
     <form class="form" method="post" action="/user/addpost" enctype="multipart/form-data">
-        <input type="text" class="form-control" placeholder="Post Title" name="title">
-        <br><br>
-        <select required name="neighborhoodId">
+        <h3><input type="text" class="form-control" placeholder="Title" name="title" required></h3>
+        <br>
+        <h4><select required name="neighborhoodId">
         	<option value="" disabled="disabled" selected="selected">Select a Neighborhood</option>
-        	<option value="1">Magnolia</option>
-        	<option value='2'>Ballard</option>
-			<option value='3'>Phinney & Greenwood</option>
-			<option value='4'>Wallingford & Green Lake</option>
-			<option value='5'>Roosevelt & Ravenna</option>
-			<option value='6'>University District</option>
-			<option value='7'>Fremont</option>
-			<option value='8'>Wedgwood & Sand Point</option>
-			<option value='9'>Queen Anne</option>
-			<option value='10'>South Lake Union</option>
-			<option value='11'>Eastlake</option>
-			<option value='12'>Belltown</option>
-			<option value='13'>Downtown</option>
-			<option value='14'>Pioneer Square</option>
-			<option value='15'>Capitol Hill</option>
-			<option value='16'>Central District</option>
-			<option value='17'>International District</option>
-			<option value='18'>Madison Park & Madison Valley</option>
-			<option value='19'>Madrona & Leschi</option>
-			<option value='20'>Beacon Hill</option>
-			<option value='21'>Rainier Valley</option>
-			<option value='22'>SODO</option>
-			<option value='23'>Georgetown</option>
-			<option value='24'>West Seattle</option>
-        </select>
-        <br><br>
-        <select required name="category">
+        <% for (i=0; i < neighborhood.length; i++) { %>
+        	<option value="<%= neighborhood[i].id %>"><%= neighborhood[i].name %></option>
+        <% } %>
+        </select></h4>
+        <br>
+        <h4><select required name="category">
         	<option value="" disabled="disabled" selected="selected">Select a Category</option>
         	<option value='1'>Eat and Drink</option>
         	<option value='2'>Day Out</option>
         	<option value='3'>Night Out</option>
         	<option value='4'>Secret Gem</option>
         	<option value='5'>Getting Around</option>
-        </select>
-        <br><br>
-        <input type="text" class="form-control" placeholder="Write your post" name="content">
-        <br><br>
+        </select></h4>
+        <br>
+        <h3><input type="text" class="form-control" placeholder="Write your post in 255 characters or less! Short and sweet." name="content" required></h3>
+        <br>
         <input type="submit" value="Submit Post" class="btn btn-primary">
     </form>
 </div>

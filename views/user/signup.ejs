@@ -2,25 +2,24 @@
 
 
 <div class="col-md-6">
-    <h1>Sign up!</h1>
+    <h1>Sign up!<small>All fields required</small></h1>
     <hr>
     <form class="form" method="post" action="/user/signup" enctype="multipart/form-data">
-    	<input type="text" class="form-control" placeholder="Enter your first name" name="first">
-        <br><br>
-        <input type="text" class="form-control" placeholder="Enter your last name" name="last">
-        <br><br>
-        <input type="text" class="form-control" placeholder="What is your occupation?" name="job">
-        <br><br>
-        <input type="text" class="form-control" placeholder="All about you and Seattle! How long have you lived here? What neighborhood is your favorite?" name="about">
-        <br><br>
-        <input type="text" class="form-control" placeholder="Enter your e-mail" name="email">
-        <br><br>
-        <input type="password" class="form-control" placeholder="Choose a password" name="password">
-        <br><br>
-        <input type="password" class="form-control" placeholder="Re-type your password" name="password2">
-        <br><br>
-        <input type="file" name="picture">
-        <br><br>
+    	<h3><input type="text" class="form-control" placeholder="Enter your first name" name="first" required></h3>
+        <br>
+        <h3><input type="text" class="form-control" placeholder="What do you do for a living?" name="job" required></h3>
+        <br>
+        <h3><input type="text" class="form-control" placeholder="Describe yourself in 140 characters or less." name="about" required></h3>
+        <br>
+        <h3><input type="text" class="form-control" placeholder="Enter your e-mail" name="email" required></h3>
+        <br>
+        <h3><input type="password" class="form-control" placeholder="Choose a password" name="password" required></h3>
+        <br>
+        <h3><input type="password" class="form-control" placeholder="Re-type your password" name="password2" required></h3>
+        <br>
+        <h5><p>Last but not least - upload a profile picture!</p></h5>
+        <h5><input type="file" name="picture" required></h5>
+        <br>
         <input type="submit" value="Sign up" class="btn btn-primary">
     </form>
 </div>

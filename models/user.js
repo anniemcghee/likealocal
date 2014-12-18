@@ -20,13 +20,29 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
         len: {
           args:[5,100],
-          msg: 'Please enter a password between 5 and 100 characters'
+          msg:'Please enter a password between 5 and 100 characters.'
           }
         }
       },
     url: DataTypes.STRING,
-    job: DataTypes.STRING,
-    about: DataTypes.STRING
+    job: {
+      type: DataTypes.STRING,
+      validate: {
+        len: {
+          args:[1,60],
+          msg:'Keep your "Job" section between 1 and 60 characters!' 
+          }
+        }
+      },
+    about: {
+      type: DataTypes.STRING,
+      validate: {
+        len: {
+          args:[1,140],
+          msg:'Keep your "About" section between 1 and 140 characters!'
+        }
+      }
+    }
   }, {
     classMethods: {
       associate: function(models) {

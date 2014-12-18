@@ -150,7 +150,7 @@ app.get('/user/addpost',function(req,res){
             res.render('user/addpost', {user: user, neighborhood:neighborhood});
         })
     } else {
-        res.redirect('/user/login')  
+        res.redirect('/user/login');
     }
 })
 
@@ -167,6 +167,17 @@ app.post('/user/addpost',function(req,res){
             userId:user.id}) //this is from session
         .then(function(newData){
             res.redirect('/user/myprofile'); //this needs to render the page the user was just on OR their profile with the new post
+        }).catch(function(error){
+            if (error && error.errors && Array.isArray(error.errors)) {
+                error.errors.forEach(function(errorItem){
+                    req.flash('danger',errorItem.message)
+                });
+            } else {
+                console.log(error);
+                req.flash('danger','Unknown error');
+            }
+
+            res.redirect('/user/addpost');
         })
     }else {
         res.redirect('/user/login');
@@ -180,12 +191,12 @@ app.get('/user/myprofile', function(req,res){
     if (user){
         var imgId='user_'+ user.id;
         var imgThumb = cloudinary.url(imgId+'.jpg', {
-          width: 100,
-          height: 108, 
+          width: 300,
+          height: 308, 
           crop: 'fill',
           gravity: 'face',
           radius: 'max',
-          // effect: 'sepia' 
+          border: '3px_solid_rgb:00390b'
         });
 
         db.user.find({where: {id: user.id}}).then(function(data){
@@ -213,12 +224,13 @@ app.get('/user/:id', function(req,res){
 
     var imgId='user_'+userId;
     var imgThumb = cloudinary.url(imgId+'.jpg', {
-      width: 100,
-      height: 108, 
+      width: 300,
+      height: 308, 
       crop: 'fill',
       gravity: 'face',
       radius: 'max',
-      // effect: 'sepia' 
+      border: '3px_solid_rgb:00390b'
+      // effect: 'vignette' 
     });
 
         db.user.find({where: {id: req.params.id}}).then(function(data){
@@ -290,6 +302,4 @@ app.get('/:neighid/:tagid', function(req,res){
 
 
 
-
-
-app.listen(3001);
+app.listen(process.env.PORT || 3001)

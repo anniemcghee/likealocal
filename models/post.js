@@ -2,8 +2,24 @@
 
 module.exports = function(sequelize, DataTypes) {
   var post = sequelize.define("post", {
-    title: DataTypes.STRING,
-    content: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      validate: {
+        len: {
+          args:[1,60],
+          msg:'Your title should be between 1 and 60 characters!'
+        }
+      }
+    },
+    content: {
+      type: DataTypes.STRING, 
+      validate: {
+        len: {
+          args:[10,255],
+          msg:'Your post should be between 10 and 1000 characters!'
+        }
+      }
+    },
     neighborhoodId: DataTypes.INTEGER,
     categoryId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER
