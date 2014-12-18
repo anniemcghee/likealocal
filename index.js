@@ -44,7 +44,7 @@ app.get('/', function(req,res){
     var user = req.getUser();
     console.log("THE USER ID IS: "+user)
 
-    db.neighborhood.findAll().success(function(neighborhood){
+    db.neighborhood.findAll({order: 'name ASC'}).success(function(neighborhood){
             res.render('index', {neighborhood:neighborhood, user: user});
     })
 })
@@ -55,9 +55,11 @@ app.get('/user/signup', function(req,res){
     if(user){
         res.redirect('/');
     } else {
-    res.render('user/signup', {user: user});    
+        db.neighborhood.findAll({order: 'name ASC'}).success(function(neighborhood){
+            res.render('user/signup', {user: user, neighborhood:neighborhood});    
+        })
     }
-    
+
 })
 
 // --- This is the login page ---
@@ -67,7 +69,9 @@ app.get('/user/login', function(req,res){
     if (user){
         res.redirect('/');
     } else {
-        res.render('user/login', {user: user});   
+        db.neighborhood.findAll({order: 'name ASC'}).success(function(neighborhood){
+            res.render('user/login', {user: user, neighborhood:neighborhood});   
+        })
     }
 })
 
@@ -142,7 +146,9 @@ app.get('/user/addpost',function(req,res){
 
     if (user) {
         console.log("THE USER NAME IS: "+user)
-        res.render('user/addpost', {user: user});
+        db.neighborhood.findAll({order: 'name ASC'}).success(function(neighborhood){
+            res.render('user/addpost', {user: user, neighborhood:neighborhood});
+        })
     } else {
         res.redirect('/user/login')  
     }
@@ -184,9 +190,11 @@ app.get('/user/myprofile', function(req,res){
 
         db.user.find({where: {id: user.id}}).then(function(data){
             // res.send(user)
-            db.post.findAll({where: {userId: user.id}}).then(function(postData){    
-                res.render('user/profile', {data:data, postData:postData, imgThumb:imgThumb, user:user});
+            db.post.findAll({where: {userId: user.id}}).then(function(postData){ 
+            db.neighborhood.findAll({order: 'name ASC'}).success(function(neighborhood){   
+                res.render('user/profile', {data:data, postData:postData, imgThumb:imgThumb, user:user, neighborhood:neighborhood});
             })
+        })
         }) 
     };
 })
@@ -215,8 +223,10 @@ app.get('/user/:id', function(req,res){
 
         db.user.find({where: {id: req.params.id}}).then(function(data){
             db.post.findAll({where: {userId: req.params.id}}).then(function(postData){
-                res.render('user/profile', {data:data, postData:postData, imgThumb:imgThumb, user:user});
-            })
+                db.neighborhood.findAll({order: 'name ASC'}).success(function(neighborhood){   
+                res.render('user/profile', {data:data, postData:postData, imgThumb:imgThumb, neighborhood:neighborhood, user:user});
+                })
+            })    
         }) 
     })
 
@@ -233,8 +243,9 @@ app.get('/:id', function(req,res){
                 var links = linksJSON.map(function(element, index){
                     return element.images.standard_resolution.url;
                 })
-
-                res.render('neighborhoodshow', {data:data, links:links, user:user});
+                db.neighborhood.findAll({order: 'name ASC'}).success(function(neighborhood){ 
+                res.render('neighborhoodshow', {data:data, links:links, neighborhood:neighborhood, user:user});
+            })
             }
         })
     });
@@ -251,10 +262,13 @@ app.get('/:neighid/:tagid', function(req,res){
             db.neighborhood.find({where: {id: req.params.neighid}}).then(function(neighData){
                 db.post.findAll({where: {neighborhoodId: req.params.neighid, categoryId: req.params.tagid}}).then(function(postData){
                     if(postData[0] === undefined){
-                        res.render('neightagposts',{postData:postData, catData:catData, neighData:neighData, user:user})
-                    }
+                        db.neighborhood.findAll({order: 'name ASC'}).success(function(neighborhood){  
+                        res.render('neightagposts',{postData:postData, catData:catData, neighborhood:neighborhood, neighData:neighData, user:user})
+                    })
+                }
                 db.user.find({where: {id: postData[0].userId}}).then(function(userData){
-                    res.render('neightagposts',{postData:postData, userData:userData, catData:catData, neighData:neighData, user:user});
+                    db.neighborhood.findAll({order: 'name ASC'}).success(function(neighborhood){   
+                    res.render('neightagposts',{postData:postData, userData:userData, catData:catData, neighborhood:neighborhood, neighData:neighData, user:user});
                 })
                 // db.user.find({where: {id: }})
                 // var imgId='user_'+ postData.userId;
@@ -267,7 +281,7 @@ app.get('/:neighid/:tagid', function(req,res){
                 //       // effect: 'sepia' 
                 //     }); then pass imgThumb through the object!
             
-                    
+                })   
 
             })
         })

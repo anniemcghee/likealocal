@@ -6,8 +6,20 @@
 
  var map = L.map('map').setView([47.605017, -122.334437], 11);
  var neighborhood = <%- JSON.stringify(neighborhood) %>;
+
+// 	var heartIcon = L.icon({
+//     iconUrl: 'heart95.png',
+
+//     iconSize:     [24, 24], // size of the icon
+
+//     iconAnchor:   [22, 22], // point of the icon which will correspond to marker's location
+
+//     popupAnchor:  [21, 21] // point from which the popup should open relative to the iconAnchor
+// });
+
   L.tileLayer('http://{s}.tiles.mapbox.com/v3/anniemcblee.8ef08a55/{z}/{x}/{y}.png', {
-      zoomControl:false
+     	zoomControl:false,
+		attributionControl:false
   }).addTo(map);
 
 
@@ -21,30 +33,5 @@ for (var i = 0; i < neighborhood.length; i++) {
  }; 
 	
 </script>
-
-<a href='/1'>Magnolia</a>
-<a href='/2'>Ballard</a>
-<a href='/3'>Phinney & Greenwood</a>
-<a href='/4'>Wallingford & Green Lake</a>
-<a href='/5'>Roosevelt & Ravenna</a>
-<a href='/6'>University District</a>
-<a href='/7'>Fremont</a>
-<a href='/8'>Wedgwood & Sand Point</a>
-<a href='/9'>Queen Anne</a>
-<a href='/10'>South Lake Union</a>
-<a href='/11'>Eastlake</a>
-<a href='/12'>Belltown</a>
-<a href='/13'>Downtown</a>
-<a href='/14'>Pioneer Square</a>
-<a href='/15'>Capitol Hill</a>
-<a href='/16'>Central District</a>
-<a href='/17'>International District</a>
-<a href='/18'>Madison Park & Madison Valley</a>
-<a href='/19'>Madrona & Leschi</a>
-<a href='/20'>Beacon Hill</a>
-<a href='/21'>Rainier Valley</a>
-<a href='/22'>SODO</a>
-<a href='/23'>Georgetown</a>
-<a href='/24'>West Seattle</a>
 
 <% include partials/footer.ejs %>
