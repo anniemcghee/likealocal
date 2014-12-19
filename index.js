@@ -192,7 +192,7 @@ app.get('/user/myprofile', function(req,res){
         var imgId='user_'+ user.id;
         var imgThumb = cloudinary.url(imgId+'.jpg', {
           width: 250,
-          height: 258, 
+          height: 208, 
           crop: 'fill',
           gravity: 'face',
           // radius: 'max',
