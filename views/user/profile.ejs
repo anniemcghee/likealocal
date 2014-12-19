@@ -1,37 +1,41 @@
 <% include ../partials/header.ejs %>
 
 <div class="container">
-<div class="row">
-<div class="col-md-3"></div>
-<div class="col-md-3">
-<img src='<%= imgThumb %>'>
+	<div class="row">
+		<div class="col-md-3">
+			<img src='<%= imgThumb %>'>
+		</div>
+		<div class="col-md-9 postbox">
+			<h1><%= data.first %></h1>
+			<h3><%= data.job %></h3>
+			<h3><%= data.about %></h3>
+			<br>
+				<% if (postData.length === 0) { %>
+				<h3>No posts by <%= data.first %> yet!</h3>
+				<% } else { %>
+				<div>
+					<h3><strong>Posts by <%= data.first %>:</h3></strong>
+					<% for (var i = 0; i < postData.length; i++) { %>
+					<div>
+					<ul>
+						<table class="post table-striped">
+							<li><a href='../<%= postData[i].neighborhoodId %>/<%= postData[i].categoryId %>'><%= postData[i].title %></a></li>
+							<br>
+							<%= postData[i].content %>
+							<hr>
+						</table>
+					</ul>
+					</div>
+				<% } %>
+				</div>
+				<% } %>
+		</div>
+	</div>
 </div>
-<div class="col-md-3">
-<h1><%= data.first %></h1>
-<h3><%= data.job %> | <%= data.about %></h3>
-</div>
-<div class="col-md-3"></div>
-</div>
-</div>
-<br><br>
-<% if (postData.length === 0) { %>
-<h3>No posts by <%= data.first %> yet!</h3>
-<% } else { %>
-<div class="text-center">
-<h3>Posts by <%= data.first %>:</h3>
-<% for (var i = 0; i < postData.length; i++) { %>
-<div class="text-center">
-<table class="post table-striped">
 
-	<a href='../<%= postData[i].neighborhoodId %>/<%= postData[i].categoryId %>'><%= postData[i].title %></a>
-	<br>
-	<%= postData[i].content %>
-	<hr>
-</table>
-</div>
-</div>
-<% } %>
-<% } %>
+
+
+
 
 
 

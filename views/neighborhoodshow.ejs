@@ -5,36 +5,34 @@
 <h1><%= data.name %>!<small><%= data.description %></small></h1>
 </div>
 
-<div class="category browse">
 <div class="row">
-	<div class="col-md-1"></div>
-    <div class="col-md-2">
-    	<a href='<%= data.id %>/1'>Day Out</a>
+	<div class="insta-container">
+    <div class="col-md-4 catbox text-center">
+    <br>
+    <a href='<%= data.id %>/1'><h2>Day Out</h2></a>
+    	<br>
+    	
+    <a href='<%= data.id %>/2'><h2>Night Out</h2></a>
+    	<br>
+  
+    <a href='<%= data.id %>/3'><h2>Eat & Drink</h2></a>
+    	<br>
+    	
+    <a href='<%= data.id %>/4'><h2>Secret Gems</h2></a>
+    	<br>
+    	
+    <a href='<%= data.id %>/5'><h2>Getting Around</h2></a>
     </div>
-    <div class="col-md-2">
-    	<a href='<%= data.id %>/2'>Night Out</a>
-    </div>
-    <div class="col-md-2">
-    	<a href='<%= data.id %>/3'>Eat & Drink</a>
-    </div>
-    <div class="col-md-2">
-    	<a href='<%= data.id %>/4'>Secret Gems</a>
-    </div>
-    <div class="col-md-2">
-    	<a href='<%= data.id %>/5'>Getting Around</a>
-    </div>
-</div>
-
-<div class="center-block">
-<div class="insta-container">
-	<div class="hashtag">
-	<h4>#<%= data.igtag %></h4>
-	</div>
-	<div id="carousel-insta" class="carousel slide" data-ride="carousel" interval='2000'>
-  		<div class="carousel-inner" text-center>
-    		<div class="item active">
-      			<img src=<%= links[0] %> alt="...">
+	<div class="col-md-8">
+		
+			<div class="hashtag">
+			<h4>#<%= data.igtag %></h4>
 			</div>
+		<div id="carousel-insta" class="carousel slide" data-ride="carousel" interval='2000'>
+  			<div class="carousel-inner" text-center>
+    			<div class="item active">
+      				<img src=<%= links[0] %> alt="...">
+				</div>
 
 		<% for (var i = 1; i < links.length; i++) { %>
     		<div class="item">
@@ -50,6 +48,7 @@
 	    	<span class="glyphicon glyphicon-chevron-right"></span>
 	  	</a>
 	</div> 
+</div>
 </div>
 </div>
 

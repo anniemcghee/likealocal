@@ -1,25 +1,34 @@
 <% include partials/header.ejs %>
 
-<div class="intro">
-<div class="row text-center title">
-<h1><%= neighData.name %>:<small><%= catData.tag %></small></h1>
+<div class="container">
+	<div class="row">
+		<div class="col-md-5 text-center">
+			<h1><%= neighData.name %>:<br><small><%= catData.tag %></small></h1>
+		</div>
+		<div class="col-md-7 postbox">
+			<br>
+			<% if (postData.length === 0) { %>
+			<h2>No posts yet!</h2>
+			<br>
+			<% } else { %>
+			<% for (var i = 0; i < postData.length; i++) { %>
+				<div>
+					<ul>
+						<table class="post table-striped">
+							<li><h2><%= postData[i].title %></h2>
+								<h3>By: <a href='../user/<%= userData.id %>'><%= userData.first %></a></h3></li>
+							<br>
+							<%= postData[i].content %> 
+							<hr>
+						</table>
+					</ul>
+				<% } %>
+				</div>
+				<% } %>
+		</div>
+	</div>
 </div>
-
-<div class="text-center">
-<% if (postData.length === 0) { %>
-<h2>No posts yet!</h2>
-</div>
-<% } else { %>
-<% for (var i = 0; i < postData.length; i++) { %>
-<div class="text-center">
-<table class="table-striped">
-	<h2><%= postData[i].title %></h2>
-	<h3>By: <a href='../user/<%= userData.id %>'><%= userData.first %></a></h3>
-	<br>
-	<%= postData[i].content %> 
-</table>
-</div>
-<% } %>
-<% } %>
 
 <% include partials/footer.ejs %>
+
+

@@ -28,12 +28,19 @@ a:hover {
 }
 
 .lgbox {
-	width:285px;
+	width:335px;
 	height:100px;
 }
 
-.title {
-	background-color:#2f4f4f;
+.catbox {
+/*	border:2px solid black;*/
+
+}
+
+.postbox {
+	border-left: 2px solid black;
+
+
 }
 
 .page-header {
@@ -69,7 +76,7 @@ a:hover {
 }
 
 div .insta-container { 
-	width: 40%;
+	width: 70%;
 	margin: auto;
 }
 
@@ -91,7 +98,7 @@ a {
 }
 
 h2 {
-	font-family: 'Grand Hotel', cursive;
+	font-family: 'Grand Hotel', sans;
 	font-size: 40px;
 }
 
@@ -109,6 +116,11 @@ h4 {
 h5 {
 	font-family: 'Cantarell', sans-serif;
 	font-size: 12px;
+}
+
+h6 {
+	font-family: 'Cantarell', sans-serif;
+	font-size: 80px;
 }
 
 h1 {
