@@ -1,17 +1,23 @@
 <% include partials/header.ejs %>
 
-<h2><%= neighData.name %></h2>
-<h3><%= catData.tag %></h3>
+<div class="intro">
+<div class="row text-center title">
+<h1><%= neighData.name %>:<small><%= catData.tag %></small></h1>
+</div>
 
+<div class="text-center">
 <% if (postData.length === 0) { %>
 <h2>No posts yet!</h2>
-
+</div>
 <% } else { %>
 <% for (var i = 0; i < postData.length; i++) { %>
+<div class="text-center">
+<table class="table-striped">
 	<h2><%= postData[i].title %></h2>
 	<h3>By: <a href='../user/<%= userData.id %>'><%= userData.first %></a></h3>
 	<br>
 	<%= postData[i].content %> 
+</table>
 </div>
 <% } %>
 <% } %>

@@ -4,7 +4,7 @@
 }
 
 body {
-	background-color: #EAE0E6;
+	background-color: #ecf0f1;
 }
 
 .btn-link {
@@ -33,7 +33,7 @@ a:hover {
 }
 
 .title {
-	background-color:#4C7979;
+	background-color:#2f4f4f;
 }
 
 .page-header {
@@ -73,12 +73,8 @@ div .insta-container {
 	margin: auto;
 }
 
-.carousel-inner {
-
-}
-
 .carousel-inner > .item > img {
-	width: 40%; 
+	width: 100%; 
 	margin: auto;
 }
 
@@ -116,6 +112,8 @@ h5 {
 }
 
 h1 {
+	border: 2px;
+	border-color: #2f4f4f;
 	color: #4C7979;
 	font-family: 'Grand Hotel', cursive;
 	font-size: 100px;

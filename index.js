@@ -191,12 +191,12 @@ app.get('/user/myprofile', function(req,res){
     if (user){
         var imgId='user_'+ user.id;
         var imgThumb = cloudinary.url(imgId+'.jpg', {
-          width: 300,
-          height: 308, 
+          width: 250,
+          height: 258, 
           crop: 'fill',
           gravity: 'face',
-          radius: 'max',
-          border: '3px_solid_rgb:00390b'
+          // radius: 'max',
+          border: '3px_solid_rgb:000'
         });
 
         db.user.find({where: {id: user.id}}).then(function(data){
@@ -224,12 +224,12 @@ app.get('/user/:id', function(req,res){
 
     var imgId='user_'+userId;
     var imgThumb = cloudinary.url(imgId+'.jpg', {
-      width: 300,
-      height: 308, 
+      width: 200,
+      height: 208, 
       crop: 'fill',
       gravity: 'face',
-      radius: 'max',
-      border: '3px_solid_rgb:00390b'
+      // radius: 'max',
+      border: '3px_solid_rgb:000'
       // effect: 'vignette' 
     });
 
