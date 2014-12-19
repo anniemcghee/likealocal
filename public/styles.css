@@ -120,7 +120,9 @@ h5 {
 
 h6 {
 	font-family: 'Cantarell', sans-serif;
-	font-size: 80px;
+	font-variant: small-caps;
+	font-style: bold;
+	font-size: 40px;
 }
 
 h1 {
