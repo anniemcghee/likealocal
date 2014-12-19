@@ -1,23 +1,33 @@
 <% include partials/header.ejs %>
 
 <div class="intro">
-<h2>Welcome to <%= data.name %>: 
-<br>
-<%= data.description %></h2>
-
+<div class="row text-center title">
+<h2>Welcome to <%= data.name %>!</h2>
+</div>
+<div class="row text-center title">
+<h3><%= data.description %></h3>
+</div>
 <div class="category browse">
-<a href='<%= data.id %>/1'>Day Out in <%= data.name %></a>
-<br>
-<a href='<%= data.id %>/2'>Night Out in <%= data.name %></a>
-<br>
-<a href='<%= data.id %>/3'>Eat & Drink in <%= data.name %></a>
-<br>
-<a href='<%= data.id %>/4'>Secret Gems in <%= data.name %></a>
-<br>
-<a href='<%= data.id %>/5'>Getting Around in <%= data.name %></a>
-<br>
+<div class="row">
+	<div class="col-md-1"></div>
+    <div class="col-md-2">
+    	<a href='<%= data.id %>/1'>Day Out</a>
+    </div>
+    <div class="col-md-2">
+    	<a href='<%= data.id %>/2'>Night Out</a>
+    </div>
+    <div class="col-md-2">
+    	<a href='<%= data.id %>/3'>Eat & Drink</a>
+    </div>
+    <div class="col-md-2">
+    	<a href='<%= data.id %>/4'>Secret Gems</a>
+    </div>
+    <div class="col-md-2">
+    	<a href='<%= data.id %>/5'>Getting Around</a>
+    </div>
 </div>
 
+<div class="center-block">
 <div class="insta container">
 	<div class="hashtag">
 	<h4>#<%= data.igtag %></h4>
@@ -42,6 +52,7 @@
 	    	<span class="glyphicon glyphicon-chevron-right"></span>
 	  	</a>
 	</div> 
+</div>
 </div>
 
 

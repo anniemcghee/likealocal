@@ -1,28 +1,74 @@
 <% include ../partials/header.ejs %>
 
-
-<div class="col-md-6">
-    <h1>Sign up!<small>All fields required</small></h1>
-    <hr>
+<div class="row center-block">
+  <div class="col-md-4"></div>
+  <div class="col-md-4 text-center">
+        <h1>Sign up! 
+        <br>
+        <small>Become a local expert.</small></h1>
+  </div>
+  <div class="col-md-4"></div>
+</div>
+<hr>
+<div class="row center-block">
     <form class="form" method="post" action="/user/signup" enctype="multipart/form-data">
-    	<h3><input type="text" class="form-control" placeholder="Enter your first name" name="first" required></h3>
-        <br>
-        <h3><input type="text" class="form-control" placeholder="What do you do for a living?" name="job" required></h3>
-        <br>
-        <h3><input type="text" class="form-control" placeholder="Describe yourself in 140 characters or less." name="about" required></h3>
-        <br>
-        <h3><input type="text" class="form-control" placeholder="Enter your e-mail" name="email" required></h3>
-        <br>
-        <h3><input type="password" class="form-control" placeholder="Choose a password" name="password" required></h3>
-        <br>
-        <h3><input type="password" class="form-control" placeholder="Re-type your password" name="password2" required></h3>
-        <br>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+    	<h3><input type="text" class="form-control smallbox" placeholder="Enter your first name" name="first" required></h3>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<div class="row center-block">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <h3><input type="text" class="form-control smallbox" placeholder="Enter your e-mail" name="email" required></h3>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<div class="row center-block">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <h3><input type="password" class="form-control smallbox" placeholder="Choose a password" name="password" required></h3>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<div class="row center-block">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 text-center">
+        <h3><input type="text" class="form-control smallbox" placeholder="What do you do for a living?" name="job" required></h3>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<div class="row center-block">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 text-center">
+        <h3><input type="text" class="form-control medbox" placeholder="Briefly describe yourself." name="about" required></h3>
+    <div class="col-md-4"></div>
+    </div>
+</div>
+<div class="row center-block">
+    <div class="col-md-4"></div> 
+    <div class="col-md-4 text-center">
         <h5><p>Last but not least - upload a profile picture!</p></h5>
-        <h5><input type="file" name="picture" required></h5>
-        <br>
+    </div> 
+    <div class="col-md-4"></div> 
+</div>
+<div class="row center-block">
+    <div class="col-md-4"></div> 
+    <div class="col-md-5 text-center">
+        <h5><input type="file" class="text-center" name="picture" required></h5>
+    </div> 
+    <div class="col-md-4"></div> 
+</div>
+<div class="row center-block">
+    <div class="col-md-4"></div> 
+    <div class="col-md-4 text-center">
         <input type="submit" value="Sign up" class="btn btn-primary">
+    </div>
+    <div class="col-md-4"></div> 
+</div>
     </form>
 </div>
-
+</div>
 
 <% include ../partials/footer.ejs %>

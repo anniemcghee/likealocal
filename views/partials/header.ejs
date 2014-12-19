@@ -18,9 +18,12 @@
 </head>
 <body>
 <div class="container">
+<div class="container-header">
 
-<div class="page header">
+<div class="page-header">
+<div class="row text-center">
 <a href='/'><h1>Like a Local: Seattle</h1></a>
+</div>
 <% if(user && typeof user != undefined) { %>
 	
 <nav class="navbar navbar-inverse" role="navigation">
@@ -38,6 +41,7 @@
     
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
+          <li><a href='javascript:window.location = document.referrer;'><span class="glyphicon glyphicon-chevron-left"></span></a></li>
           <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Neighborhoods <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
@@ -48,11 +52,16 @@
             <li><a href="/">Home</a></li>
           </ul>
         </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
         <li><a href="/user/myprofile"><%= typeof user.first == 'string' ? user.first : '' %>'s Profile</a></li>
+        
+        
         <li><a href="/user/logout">Log Out <span class="sr-only">(current)</span></a></li>
-        <li><a href='javascript:window.location = document.referrer;'><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+        </ul>
      
-      </ul>
+      
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
@@ -74,7 +83,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-      
+        <li><a href='javascript:window.location = document.referrer;'><span class="glyphicon glyphicon-chevron-left"></span></a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Neighborhoods <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
@@ -85,10 +94,13 @@
             <li><a href="/">Home</a></li>
           </ul>
         </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
         <li><a href="/user/signup">Sign Up</a></li>
+        
         <li><a href="/user/login">Log In <span class="sr-only">(current)</span></a></li>
-        <li><a href='javascript:window.location = document.referrer;'><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-      </ul>
+        </ul>
+      
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
@@ -97,7 +109,7 @@
 
 
 
-<hr>
+</div>
 </div>
 
 

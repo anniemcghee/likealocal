@@ -1,11 +1,52 @@
 #map {
 	height:450px;
-	width:60%;
+	width:100%;
 }
 
-/*.footer {
-	position: fixed;
-}*/
+body {
+	background-color: #EAE0E6;
+}
+
+.btn-link {
+	color: #4C7979
+}
+
+.btn-link:hover {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+.smallbox {
+	width:285px;
+}
+
+.medbox {
+	width:285px;
+	height:80px;
+}
+
+.lgbox {
+	width:285px;
+	height:100px;
+}
+
+.title {
+	background-color:#4C7979;
+}
+
+.page-header {
+	background-color: 
+}
+
+.container-header {
+	background-color: ;
+}
+
+.footer {
+	background-color: ;
+}
 
 .btn-primary {
 	font-family: 'Grand Hotel', cursive;
@@ -41,15 +82,21 @@ div .insta-container {
 	margin: auto;
 }
 
-a {
+a {	
+	color: #4C7979;
 	font-family: 'Cantarell', sans-serif;
 	font-size: 20px;
 	font-variant: bold;
 }
 
+.link {
+	font-family: 'Grand Hotel', cursive;
+	font-size: 20px;
+}
+
 h2 {
-	font-family: 'Cantarell', sans-serif;
-	font-size: 36px;
+	font-family: 'Grand Hotel', cursive;
+	font-size: 40px;
 }
 
 h3 {
@@ -69,6 +116,7 @@ h5 {
 }
 
 h1 {
+	color: #4C7979;
 	font-family: 'Grand Hotel', cursive;
-	font-size: 42px;
+	font-size: 100px;
 }

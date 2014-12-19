@@ -29,7 +29,7 @@ map.doubleClickZoom.disable();
 map.scrollWheelZoom.disable();
 
 for (var i = 0; i < neighborhood.length; i++) { 
-	L.marker([neighborhood[i].latitude, neighborhood[i].longitude]).bindPopup('<a href="/' + neighborhood[i].id + '">' + neighborhood[i].name + '</a>' +'<br>'+ '<h2>' + neighborhood[i].description + '</h2>').addTo(map);
+	L.marker([neighborhood[i].latitude, neighborhood[i].longitude]).bindPopup('<a href="/' + neighborhood[i].id + '">' + neighborhood[i].name + '</a>' +'<br>'+ '<h3>' + neighborhood[i].description + '</h3>').addTo(map);
  }; 
 	
 </script>
