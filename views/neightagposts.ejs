@@ -3,7 +3,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-5 text-center">
-			<h1><%= neighData.name %>:<br><small><%= catData.tag %></small></h1>
+			<h1><%= neighborhoodData.name %>:<br><small><%= categoryData.tag %></small></h1>
 		</div>
 		<div class="col-md-7 postbox">
 			<br>
@@ -12,23 +12,22 @@
 			<br>
 			<% } else { %>
 			<% for (var i = 0; i < postData.length; i++) { %>
-				<div>
-					<ul>
-						<table class="post table-striped">
-							<li><h2><%= postData[i].title %></h2>
-								<h3>By: <a href='../user/<%= userData.id %>'><%= userData.first %></a></h3></li>
+			<div>
+				<ul>
+					<table class="post table-striped">
+						<li><h2><%= postData[i].title %></h2>
+							<h3>By: <a href='../user/<%= userData.id %>'><%= userData.first %></a></h3></li>
 							<br>
 							<%= postData[i].content %> 
 							<hr>
 						</table>
-					</ul>
+				</ul>
 				<% } %>
-				</div>
-				<% } %>
+			</div>
+			<% } %>
 		</div>
 	</div>
 </div>
-
 <% include partials/footer.ejs %>
 
 

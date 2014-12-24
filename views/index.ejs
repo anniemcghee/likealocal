@@ -4,34 +4,24 @@
 </div>
 <script>
 
- var map = L.map('map').setView([47.605017, -122.334437], 11);
- var neighborhood = <%- JSON.stringify(neighborhood) %>;
+	var map = L.map('map').setView([47.605017, -122.334437], 11);
+	var neighborhood = <%- JSON.stringify(neighborhood) %>;
 
-// 	var heartIcon = L.icon({
-//     iconUrl: 'heart95.png',
-
-//     iconSize:     [24, 24], // size of the icon
-
-//     iconAnchor:   [22, 22], // point of the icon which will correspond to marker's location
-
-//     popupAnchor:  [21, 21] // point from which the popup should open relative to the iconAnchor
-// });
-
-  L.tileLayer('http://{s}.tiles.mapbox.com/v3/anniemcblee.8ef08a55/{z}/{x}/{y}.png', {
-     	zoomControl:false,
-		attributionControl:false
-  }).addTo(map);
+	  L.tileLayer('http://{s}.tiles.mapbox.com/v3/anniemcblee.8ef08a55/{z}/{x}/{y}.png', {
+		     	zoomControl:false,
+				attributionControl:false
+	  }).addTo(map);
 
 
-map.dragging.disable();
-map.touchZoom.disable();
-map.doubleClickZoom.disable();
-map.scrollWheelZoom.disable();
+		map.dragging.disable();
+		map.touchZoom.disable();
+		map.doubleClickZoom.disable();
+		map.scrollWheelZoom.disable();
 
-for (var i = 0; i < neighborhood.length; i++) { 
-	L.marker([neighborhood[i].latitude, neighborhood[i].longitude]).bindPopup('<a href="/' + neighborhood[i].id + '">' + neighborhood[i].name + '</a>' +'<br>'+ '<h3>' + neighborhood[i].description + '</h3>').addTo(map);
- }; 
-	
+	for (var i = 0; i < neighborhood.length; i++) { 
+		L.marker([neighborhood[i].latitude, neighborhood[i].longitude]).bindPopup('<a class="link" href="/' + neighborhood[i].id + '">' + '<h3>' + neighborhood[i].name + '</h3>' + '</a>' + '<h4>' + neighborhood[i].description + '</h4>').addTo(map);
+	}; 
+
 </script>
 
 <% include partials/footer.ejs %>

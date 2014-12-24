@@ -1,61 +1,55 @@
 <% include partials/header.ejs %>
 
 <div class="intro">
-<div class="row text-center title">
-<h1><%= data.name %>!<small><%= data.description %></small></h1>
-</div>
+	<div class="row text-center title">
+		<h1><%= neighborhoodData.name %>!<small><%= neighborhoodData.description %></small></h1>
+	</div>
 
-<div class="row">
-	<div class="insta-container">
-    <div class="col-md-4 catbox text-center">
-    <br>
-    <a href='<%= data.id %>/1'><h6>Eat & Drink</h6></a>
-    	<br>
-    	
-    <a href='<%= data.id %>/2'><h6>Day Out</h6></a>
-    	<br>
-  
-    <a href='<%= data.id %>/3'><h6>Night Out</h6></a>
-    	<br>
-    	
-    <a href='<%= data.id %>/4'><h6>Secret Gems</h6></a>
-    	<br>
-    	
-    <a href='<%= data.id %>/5'><h6>Getting Around</h6></a>
-    </div>
-	<div class="col-md-8">
-		
-			<div class="hashtag">
-			<h4>#<%= data.igtag %></h4>
+	<div class="row">
+		<div class="insta-container">
+			<div class="col-md-4 catbox text-center">
+				<br>
+				<a href='<%= neighborhoodData.id %>/1'><h6>Eat & Drink</h6></a>
+				<br>
+
+				<a href='<%= neighborhoodData.id %>/2'><h6>Day Out</h6></a>
+				<br>
+
+				<a href='<%= neighborhoodData.id %>/3'><h6>Night Out</h6></a>
+				<br>
+
+				<a href='<%= neighborhoodData.id %>/4'><h6>Secret Gems</h6></a>
+				<br>
+
+				<a href='<%= neighborhoodData.id %>/5'><h6>Getting Around</h6></a>
 			</div>
-		<div id="carousel-insta" class="carousel slide" data-ride="carousel" interval='2000'>
-  			<div class="carousel-inner" text-center>
-    			<div class="item active">
-      				<img src=<%= links[0] %> alt="...">
+			<div class="col-md-8">
+
+				<div class="hashtag">
+					<h4>#<%= neighborhoodData.igtag %></h4>
 				</div>
+				<div id="carousel-insta" class="carousel slide" data-ride="carousel" interval='2000'>
+					<div class="carousel-inner" text-center>
+						<div class="item active">
+							<img src=<%= photoLinks[0] %> alt="...">
+						</div>
 
-		<% for (var i = 1; i < links.length; i++) { %>
-    		<div class="item">
-				<img src='<%= links[i] %>' alt="...">
+						<% for (var i = 1; i < photoLinks.length; i++) { %>
+						<div class="item">
+							<img src='<%= photoLinks[i] %>' alt="...">
+						</div>
+						<% } %>
+					</div>
+
+					<a class="left carousel-control" href="#carousel-insta" role="button" data-slide="prev">
+						<span class="glyphicon glyphicon-chevron-left"></span>
+					</a>
+					<a class="right carousel-control" href="#carousel-insta" role="button" data-slide="next">
+						<span class="glyphicon glyphicon-chevron-right"></span>
+					</a>
+				</div> 
 			</div>
-				<% } %>
-  		</div>
- 
-	  	<a class="left carousel-control" href="#carousel-insta" role="button" data-slide="prev">
-	    	<span class="glyphicon glyphicon-chevron-left"></span>
-	  	</a>
-	  	<a class="right carousel-control" href="#carousel-insta" role="button" data-slide="next">
-	    	<span class="glyphicon glyphicon-chevron-right"></span>
-	  	</a>
-	</div> 
-</div>
-</div>
-</div>
+		</div>
+	</div>
 
-
-
-
-
-
-
-<% include partials/footer.ejs %>
+	<% include partials/footer.ejs %>

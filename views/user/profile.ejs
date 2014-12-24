@@ -6,17 +6,17 @@
 			<img src='<%= imgThumb %>'>
 		</div>
 		<div class="col-md-9 postbox">
-			<h1><%= data.first %></h1>
-			<h3><%= data.job %></h3>
-			<h3><%= data.about %></h3>
+			<h1><%= userData.first %></h1>
+			<h3><%= userData.job %></h3>
+			<h3><%= userData.about %></h3>
 			<br>
-				<% if (postData.length === 0) { %>
-				<h3>No posts by <%= data.first %> yet!</h3>
-				<% } else { %>
+			<% if (postData.length === 0) { %>
+			<h3>No posts by <%= userData.first %> yet!</h3>
+			<% } else { %>
+			<div>
+				<h3><strong>Posts by <%= userData.first %>:</h3></strong>
+				<% for (var i = 0; i < postData.length; i++) { %>
 				<div>
-					<h3><strong>Posts by <%= data.first %>:</h3></strong>
-					<% for (var i = 0; i < postData.length; i++) { %>
-					<div>
 					<ul>
 						<table class="post table-striped">
 							<li><a href='../<%= postData[i].neighborhoodId %>/<%= postData[i].categoryId %>'><%= postData[i].title %></a></li>
@@ -25,18 +25,12 @@
 							<hr>
 						</table>
 					</ul>
-					</div>
-				<% } %>
 				</div>
 				<% } %>
+			</div>
+			<% } %>
 		</div>
 	</div>
 </div>
-
-
-
-
-
-
 
 <% include ../partials/footer.ejs %>
