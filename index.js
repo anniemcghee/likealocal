@@ -274,6 +274,10 @@ app.get('/:neighid/:tagid', function(req,res){
     })
 })
 
+app.use(function(req, res, next){
+  res.send(404, "Sorry that page doesn't exist.");
+});
+
 
 
 app.listen(process.env.PORT || 3001)
