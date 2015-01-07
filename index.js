@@ -206,13 +206,35 @@ app.get('/user/myprofile', function(req,res){
     };
 })
 
+app.get('user/404',function(req, res, next){
+
+    var user = req.getUser();
+
+    db.neighborhood.findAll({order: 'name ASC'}).success(function(neighborhood){
+        res.render('user404', {neighborhood:neighborhood, user: user});
+    })
+});
+
+app.get('404',function(req, res, next){
+
+    var user = req.getUser();
+
+    db.neighborhood.findAll({order: 'name ASC'}).success(function(neighborhood){
+        res.render('404', {neighborhood:neighborhood, user: user});
+    })
+});
+
+
 // --- This is any user's profile ---
 app.get('/user/:id', function(req,res){
 
     var user = req.getUser();
 
-    var userId = req.params.id
-
+    var userId = parseInt(req.params.id)
+// ----- POSSIBLE 404 BUSINESS HERE! -----
+    // if(isNan(userId)) {
+    //     return res.redirect('user/404')
+    // }
     var imgId='user_'+userId;
     var imgThumb = cloudinary.url(imgId+'.jpg', {
         width: 260,
@@ -223,6 +245,7 @@ app.get('/user/:id', function(req,res){
     });
 
     db.user.find({where: {id: req.params.id}}).then(function(userData){
+        // MORE 404 BUSINESS HERE
         db.post.findAll({where: {userId: req.params.id}}).then(function(postData){
             db.neighborhood.findAll({order: 'name ASC'}).success(function(neighborhood){   
                 res.render('user/profile', {userData:userData, postData:postData, imgThumb:imgThumb, neighborhood:neighborhood, user:user});
@@ -234,10 +257,17 @@ app.get('/user/:id', function(req,res){
 // --- This is the neighborhood show page ---
 app.get('/:id', function(req,res){
     var user = req.getUser();
-    var neighborhoodId = req.params.id
+    var neighborhoodId = parseInt(req.params.id)
 
+// -------- 404 DRAFT ---------
+    // if(isNaN(neighborhoodId)) {
+    //     return res.redirect('/404');
+    // };
     db.neighborhood.find({where: {id: neighborhoodId}}).then(function(neighborhoodData){
-
+        // if (id != neighborhoodId) {
+        //     return res.redirect('/404')// MORE 404 business here!
+        // }
+        // else {
         Instagram.tags.recent({
             name: neighborhoodData.igtag,
             complete:function(linksJSON){
@@ -249,6 +279,7 @@ app.get('/:id', function(req,res){
                 })
             }
         })
+    // }
     });
 }) 
 
@@ -274,9 +305,10 @@ app.get('/:neighid/:tagid', function(req,res){
     })
 })
 
-app.use(function(req, res, next){
-  res.send(404, "Sorry that page doesn't exist.");
-});
+// app.use(function(req, res, next){
+//     res.status(404);
+//     res.render('404');
+// });
 
 
 
