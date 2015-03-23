@@ -1,9 +1,9 @@
 var express = require('express');
-var session = require('express-session'); 
+var session = require('express-session');
 var multer = require('multer');
 var cloudinary = require('cloudinary');
 var app = express();
-var flash = require('connect-flash') 
+var flash = require('connect-flash')
 var bcrypt = require('bcrypt');
 var Instagram = require('instagram-node-lib');
 
@@ -12,9 +12,9 @@ var links = [];
 
 app.set('view engine','ejs');
 
-app.use(express.static(__dirname + '/public')); 
+app.use(express.static(__dirname + '/public'));
 app.use(multer({dest: __dirname+'/uploads'}));
-app.use(session({ 
+app.use(session({
     secret: process.env.secret_session,
     resave: false,
     saveUninitialized: true
@@ -25,17 +25,17 @@ app.use(flash());
 Instagram.set('client_id', process.env.client_id);
 Instagram.set('client_secret', process.env.client_secret);
 
-app.use(function(req, res, next){ 
+app.use(function(req, res, next){
     req.getUser = function(){
         return req.session.user || false;
     }
-    next(); 
+    next();
 })
 
 app.use('*', function(req,res,next){
     var alerts = req.flash();
-    res.locals.alerts = alerts; 
-    next(); 
+    res.locals.alerts = alerts;
+    next();
 });
 
 // --- This is the homepage ---
@@ -55,20 +55,20 @@ if(user){
     res.redirect('/');
 } else {
     db.neighborhood.findAll({order: 'name ASC'}).success(function(neighborhood){
-        res.render('user/signup', {user: user, neighborhood:neighborhood});    
+        res.render('user/signup', {user: user, neighborhood:neighborhood});
         })
     }
 })
 
 // --- This is the login page ---
 app.get('/user/login', function(req,res){
-    var user = req.getUser(); 
+    var user = req.getUser();
 console.log(user);
 if (user){
     res.redirect('/');
 } else {
     db.neighborhood.findAll({order: 'name ASC'}).success(function(neighborhood){
-        res.render('user/login', {user: user, neighborhood:neighborhood});   
+        res.render('user/login', {user: user, neighborhood:neighborhood});
         })
     }
 })
@@ -82,7 +82,7 @@ app.post('/user/signup', function(req,res){
         where: {email: req.body.email},
         defaults: {email: req.body.email, first: req.body.first, last: req.body.last, password: req.body.password, job:req.body.job, about:req.body.about}
     }).spread(function(user, created){
-
+//IF CREATED - then do all of this
         req.session.user = {
             id: user.id,
             email: user.email,
@@ -92,6 +92,7 @@ app.post('/user/signup', function(req,res){
         cloudinary.uploader.upload(myImgPath,function(result){
             res.redirect('/');
         },{'public_id': 'user_'+user.id});
+//ELSE Flash error "You already have an account. Link to Login page"
     }).catch(function(error){
         if (error && error.errors && Array.isArray(error.errors)) {
             error.errors.forEach(function(errorItem){
@@ -103,6 +104,7 @@ app.post('/user/signup', function(req,res){
         }
         res.redirect('/user/signup')
     })
+
 })
 
 // --- This is the login post ---
@@ -161,9 +163,9 @@ app.post('/user/addpost',function(req,res){
             content:req.body.content,
             neighborhoodId:req.body.neighborhoodId,
             categoryId:req.body.category,
-            userId:user.id}) 
+            userId:user.id})
         .then(function(newData){
-            res.redirect('/user/myprofile'); 
+            res.redirect('/user/myprofile');
         }).catch(function(error){
             if (error && error.errors && Array.isArray(error.errors)) {
                 error.errors.forEach(function(errorItem){
@@ -190,19 +192,19 @@ app.get('/user/myprofile', function(req,res){
         var imgId='user_'+ user.id;
         var imgThumb = cloudinary.url(imgId+'.jpg', {
             width: 260,
-            height: 218, 
+            height: 218,
             crop: 'fill',
             gravity: 'face',
             border: '3px_solid_rgb:000'
         });
 
         db.user.find({where: {id: user.id}}).then(function(userData){
-            db.post.findAll({where: {userId: user.id}}).then(function(postData){ 
-                db.neighborhood.findAll({order: 'name ASC'}).success(function(neighborhood){   
+            db.post.findAll({where: {userId: user.id}}).then(function(postData){
+                db.neighborhood.findAll({order: 'name ASC'}).success(function(neighborhood){
                     res.render('user/profile', {userData:userData, postData:postData, imgThumb:imgThumb, user:user, neighborhood:neighborhood});
                 })
             })
-        }) 
+        })
     };
 })
 
@@ -231,27 +233,33 @@ app.get('/user/:id', function(req,res){
     var user = req.getUser();
 
     var userId = parseInt(req.params.id)
-// ----- POSSIBLE 404 BUSINESS HERE! -----
-    // if(isNan(userId)) {
-    //     return res.redirect('user/404')
-    // }
+
     var imgId='user_'+userId;
     var imgThumb = cloudinary.url(imgId+'.jpg', {
         width: 260,
-        height: 218, 
+        height: 218,
         crop: 'fill',
         gravity: 'face',
         border: '3px_solid_rgb:000'
     });
 
+//Before the .then is where you catch for NULL on USER. How?
     db.user.find({where: {id: req.params.id}}).then(function(userData){
-        // MORE 404 BUSINESS HERE
+        if (userData) {
+            //could user userData.getPosts().then(function(postData){ everything else goes in here to dry it up})
         db.post.findAll({where: {userId: req.params.id}}).then(function(postData){
-            db.neighborhood.findAll({order: 'name ASC'}).success(function(neighborhood){   
+            db.neighborhood.findAll({order: 'name ASC'}).success(function(neighborhood){
                 res.render('user/profile', {userData:userData, postData:postData, imgThumb:imgThumb, neighborhood:neighborhood, user:user});
             })
-        })    
-    }) 
+        })
+    }
+    else {
+        res.render('user404')
+    }
+    }).catch(function(error) {
+        res.send(404);
+    });
+    //the above only works if user enters a random string, not integers
 })
 
 // --- This is the neighborhood show page ---
@@ -259,29 +267,22 @@ app.get('/:id', function(req,res){
     var user = req.getUser();
     var neighborhoodId = parseInt(req.params.id)
 
-// -------- 404 DRAFT ---------
-    // if(isNaN(neighborhoodId)) {
-    //     return res.redirect('/404');
-    // };
     db.neighborhood.find({where: {id: neighborhoodId}}).then(function(neighborhoodData){
-        // if (id != neighborhoodId) {
-        //     return res.redirect('/404')// MORE 404 business here!
-        // }
-        // else {
         Instagram.tags.recent({
             name: neighborhoodData.igtag,
             complete:function(linksJSON){
                 var photoLinks = linksJSON.map(function(element, index){
                     return element.images.standard_resolution.url;
                 })
-                db.neighborhood.findAll({order: 'name ASC'}).success(function(neighborhood){ 
+                db.neighborhood.findAll({order: 'name ASC'}).success(function(neighborhood){
                     res.render('neighborhoodshow', {neighborhoodData:neighborhoodData, photoLinks:photoLinks, neighborhood:neighborhood, user:user});
                 })
             }
         })
-    // }
+    }).catch(function(error) {
+        res.send(404);
     });
-}) 
+})
 
 // --- This is the neighborhood posts page by tag ---
 app.get('/:neighid/:tagid', function(req,res){
@@ -291,24 +292,21 @@ app.get('/:neighid/:tagid', function(req,res){
         db.neighborhood.find({where: {id: req.params.neighid}}).then(function(neighborhoodData){
             db.post.findAll({where: {neighborhoodId: req.params.neighid, categoryId: req.params.tagid}}).then(function(postData){
                 if(postData[0] === undefined){
-                    db.neighborhood.findAll({order: 'name ASC'}).success(function(neighborhood){  
+                    db.neighborhood.findAll({order: 'name ASC'}).success(function(neighborhood){
                         res.render('neightagposts',{postData:postData, categoryData:categoryData, neighborhood:neighborhood, neighborhoodData:neighborhoodData, user:user})
                     })
                 }
                 db.user.find({where: {id: postData[0].userId}}).then(function(userData){
-                    db.neighborhood.findAll({order: 'name ASC'}).success(function(neighborhood){   
+                    db.neighborhood.findAll({order: 'name ASC'}).success(function(neighborhood){
                         res.render('neightagposts',{postData:postData, userData:userData, categoryData:categoryData, neighborhood:neighborhood, neighborhoodData:neighborhoodData, user:user});
                     })
-                })   
+                })
             })
         })
-    })
+    }).catch(function(error) {
+        res.send(404);
+    });
 })
-
-// app.use(function(req, res, next){
-//     res.status(404);
-//     res.render('404');
-// });
 
 
 

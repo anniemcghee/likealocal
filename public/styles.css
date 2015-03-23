@@ -44,7 +44,7 @@ a:hover {
 }
 
 .page-header {
-	background-color: 
+	background-color:
 }
 
 .container-header {
@@ -75,17 +75,17 @@ a:hover {
 	color:#000;
 }
 
-div .insta-container { 
+div .insta-container {
 	width: 70%;
 	margin: auto;
 }
 
 .carousel-inner > .item > img {
-	width: 100%; 
+	width: 100%;
 	margin: auto;
 }
 
-a {	
+a {
 	color: #4C7979;
 	font-family: 'Cantarell', sans-serif;
 	font-size: 20px;
